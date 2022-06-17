@@ -5,20 +5,24 @@ checkButton.addEventListener("click", async () => {
     target: { tabId: tab.id },
     function: () => {
       let emails = [...document.getElementsByTagName("a")].filter(
-        (i) => i.href.indexOf("mailto:") != -1
+        (i) => i.href.indexOf("mailto:email@email.com") != -1
       ).length;
       let tels = [...document.getElementsByTagName("a")].filter(
-        (i) => i.href.indexOf("tel:") != -1
+        (i) => i.href.indexOf("tel:123-456-789") != -1
       ).length;
       let alts = [...document.getElementsByTagName("img")].filter(
         (i) => i.alt === null || i.alt === ""
       ).length;
+      let texts = [...document.getElementsByTagName("span")].filter(
+        (i) => i.textContent.indexOf("100-150 words describing") != -1
+      ).length;
+      alert(
+        `Amount of default emails: ${emails}\nAmount of default telephones: ${tels}\nAmount of missing alt tags: ${alts}\nAmount of default texts: ${texts}`
+      );
       let emailsList = "",
         telsList = "",
-        altsList = "";
-      alert(
-        `Amount of default emails: ${emails}\nAmount of default telephones: ${tels}\nAmount of missing alt tags: ${alts} `
-      );
+        altsList = "",
+        textsList = "";
       if (emails != 0) {
         for (let i = 0; i < emails; i++)
           emailsList +=
@@ -63,6 +67,21 @@ checkButton.addEventListener("click", async () => {
              ${altsList}`);
         console.log(`Missing alt tags: 
              ${altsList}`);
+      }
+      if (texts != 0) {
+        for (let i = 0; i < texts; i++)
+          textsList +=
+            i +
+            1 +
+            ". " +
+            [...document.getElementsByTagName("span")].filter(
+              (i) => i.textContent.indexOf("100-150 words describing") != -1
+            )[i].textContent +
+            "\n";
+        alert(`Default texts: 
+             ${textsList}`);
+        console.log(`Default texts: 
+             ${textsList}`);
       }
     },
   });
